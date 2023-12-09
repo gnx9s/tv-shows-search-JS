@@ -118,5 +118,5 @@ img {
 
 .poster {
   background-color: var(--color-img-bg);
-  height: 177px;
+  max-height: 177px;
 }

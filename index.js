@@ -1,22 +1,44 @@
 const handleSearch = async (event) => {
   event.preventDefault();
 
-  // implemente a consulta a partir daqui
-
-  //// Exemplo de endpoint: https://api.tvmaze.com/search/shows?q=lost
-
-  //// Elementos de leiaute importantes:
-
-  //  #message: use para exibir mensagens aos usuário, por exemplo:
-
   const message = document.querySelector('#message');
-  message.innerHTML = 'exercício ainda não resolvido.';
+  message.innerHTML = 'buscando resultados...';
 
-  //  #shows: conterá os shows, cada um em um <li>, por exemplo:
-  // <li>
-  //   <img class="poster" src="https://static.tvmaze.com/uploads/images/medium_portrait/0/1389.jpg" />
-  //   <span class="show-name">Lost</span>
-  // </li>
+  const showsList = document.querySelector('#shows');
+  showsList.innerHTML = '';
+
+  const searchBox = document.querySelector('#query');
+  const search = searchBox.value;
+
+  const url = `https://api.tvmaze.com/search/shows?q=${search}`;
+
+  const response = await fetch(url);
+  const programs = await response.json();
+
+  if (programs.length == 0) {
+    message.innerHTML = 'Nenhum resultado encontrado.';
+    return;
+  }
+
+  message.innerHTML = '';
+
+  programs.forEach((program) => {
+    const title = program?.show?.name || '';
+    const image = program?.show?.image?.medium || '/imgs/matue2.jpg';
+
+    console.log(title, image);
+    showsList.insertAdjacentHTML(
+      'beforeend',
+      `
+    <li>
+      <img src="${image}" class="poster">
+      <span class="show-name">${title}</span>
+    </li>
+    `
+    );
+  });
+
+  message.innerHTML = '';
 };
 
 document.addEventListener('DOMContentLoaded', () => {
