@@ -24,9 +24,7 @@ const handleSearch = async (event) => {
 
   programs.forEach((program) => {
     const title = program?.show?.name || '';
-    const image =
-      program?.show?.image?.medium ||
-      'https://canseideserpop.com/wp-content/uploads/2023/07/matue-e-o-1o-trapper-com-mais-de-20-musicas-acima-de-100-milhoes-de-streams-site-conteudo-postagem-cansei-de-ser-pop-trap-maquina-do-tempo-02-682x1024.jpg';
+    const image = program?.show?.image?.medium || '';
 
     console.log(title, image);
     showsList.insertAdjacentHTML(
